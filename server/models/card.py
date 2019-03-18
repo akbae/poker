@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, Dict
 
 from aenum import Enum
 
@@ -68,9 +68,20 @@ class CardValue(Enum):
 
 
 class Card(object):
+
+    value: CardValue
+    suit: CardSuit
+
     def __init__(self, value: Any, suit: Any):
         self.value = CardValue(value)
         self.suit = CardSuit(suit)
+
+    @staticmethod
+    def to_dict(card) -> Dict[str, Any]:
+        return {
+            "value": str(card.value),
+            "suit": str(card.suit),
+        }
 
     def __eq__(self, other):
         """Each card is unique, so only value is required for equality."""

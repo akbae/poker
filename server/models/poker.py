@@ -17,7 +17,7 @@ class Poker(object):
         self.state = State()
 
     def add_player(self, name: str) -> uuid.UUID:
-        player_uuid = uuid.uuid5(uuid.NAMESPACE_DNS, name)
+        player_uuid = uuid.uuid4()
         self.state = next(
             self.state,
             Action(table.TableActionType.ADD_PLAYER, player_uuid=player_uuid))

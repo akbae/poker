@@ -1,4 +1,4 @@
-
+from typing import Dict
 
 class Blinds(object):
 
@@ -8,6 +8,10 @@ class Blinds(object):
     def __init__(self, small, big):
         self.small = small
         self.big = big
+
+    @staticmethod
+    def to_dict(blinds) -> Dict[str, int]:
+        return blinds.__dict__
 
     def __str__(self):
         return f"Small blinds: {self.small:.2f}, Big blinds: {self.big:.2f}"

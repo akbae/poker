@@ -1,3 +1,4 @@
+from json import JSONEncoder
 from typing import Any, Dict, List, Optional
 import uuid
 
@@ -47,6 +48,31 @@ class State(object):
         self.stacks = stacks or {}
         self.to_act = to_act or 0
         self.winners = winners or []
+
+    @staticmethod
+    def to_dict(state) -> Dict[str, Any]:
+        return {
+            "bets": {
+                str(id): state.bets[id]
+                for id in state.bets.keys()
+            },
+            "blinds": Blinds.to_dict(state.blinds),
+            "board": state.board,
+            "dealer_position": state.dealer_position,
+            "holes": {
+                str(id): [Card.to_dict(card) for card in state.holes[id]]
+                for id in state.holes.keys()
+            },
+            "in_play": [str(id) for id in state.in_play],
+            "players": [str(id) for id in state.players],
+            "pot": state.pot,
+            "stacks": {
+                str(id): state.stacks[id]
+                for id in state.stacks.keys()
+            },
+            "to_act": state.to_act,
+            "winners": [str(id) for id in state.winners],
+        }
 
     @staticmethod
     def new_state(
